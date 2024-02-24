@@ -22,3 +22,10 @@ html {
   color: var(--text);
   overflow: hidden;
 }
+
+.edgeMask {
+  mask-image: url(../assets/svg/edge.svg);
+  -webkit-mask-image: url(../assets/svg/edge.svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
