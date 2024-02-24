@@ -10,11 +10,11 @@ import Canvas from "./components/pages/Canvas";
 
 function App() {
   return (
-    <Router basename="/vite-react-ts-template">
+    <Router basename="/Canvas-testing">
       <Navigation />
       <Routes>
         <Route path="/" element={<Canvas />} />
-        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );
