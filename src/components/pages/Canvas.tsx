@@ -19,6 +19,7 @@ const Canvas = () => {
     const OnResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      init();
     };
 
     const OnMouseMove = (e: MouseEvent) => {
@@ -29,16 +30,20 @@ const Canvas = () => {
     addEventListener("mousemove", OnMouseMove);
     addEventListener("resize", OnResize);
 
-    const circleArray: Circle[] = [];
+    let circleArray: Circle[] = [];
+    const init = () => {
+      circleArray = [];
+      for (let i = 0; i < 100; i++) {
+        const radius = 20;
+        const x = Math.random() * (innerWidth - 2 * radius) + radius;
+        const y = Math.random() * (innerHeight - 2 * radius) + radius;
+        const dx = (Math.random() - 0.5) * 2;
+        const dy = (Math.random() - 0.5) * 2;
+        circleArray.push(new Circle(x, y, dx, dy, radius));
+      }
+    };
 
-    for (let i = 0; i < 100; i++) {
-      const radius = 20;
-      const x = Math.random() * (innerWidth - 2 * radius) + radius;
-      const y = Math.random() * (innerHeight - 2 * radius) + radius;
-      const dx = (Math.random() - 0.5) * 2;
-      const dy = (Math.random() - 0.5) * 2;
-      circleArray.push(new Circle(x, y, dx, dy, radius));
-    }
+    init();
 
     const animate = () => {
       c.clearRect(0, 0, innerWidth, innerHeight);
@@ -51,6 +56,7 @@ const Canvas = () => {
     animate();
 
     return () => {
+      circleArray = [];
       removeEventListener("resize", OnResize);
       removeEventListener("mousemove", OnMouseMove);
     };

@@ -28,12 +28,12 @@ export class Circle {
     c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     c.strokeStyle = `rgb(${this.color.r},${this.color.r},${this.color.r})`;
     c.stroke();
-    c.fillStyle = `rgb(${this.color.r},${this.color.r},${this.color.r})`;
+    c.fillStyle = `rgba(${this.color.r},${this.color.r},${this.color.r},0.2)`;
     c.fill();
   }
 
   interactivity(mouse: { x: undefined | number; y: undefined | number }) {
-    const maxRad = 20;
+    const maxRad = 200;
     if (!mouse.x || !mouse.y) return;
 
     if (
@@ -42,7 +42,7 @@ export class Circle {
     ) {
       if (maxRad >= this.radius) this.radius += 1;
     } else {
-      if (this.minRadius <= this.radius) this.radius -= 0.1;
+      if (this.minRadius <= this.radius) this.radius -= 1;
     }
   }
 
@@ -58,7 +58,7 @@ export class Circle {
     }
     this.x += this.dx;
     this.y += this.dy;
-    // this.interactivity(mouse);
+    this.interactivity(mouse);
     this.draw(c);
   }
 

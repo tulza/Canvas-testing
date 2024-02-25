@@ -1,4 +1,3 @@
-import { Circle } from "@/entities/Circle";
 import { GravityBall } from "@/entities/GravityBall";
 import { useEffect, useRef } from "react";
 
@@ -20,7 +19,7 @@ const Canvas1 = () => {
     const OnResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      circleArr = [];
+      gravityBallArr = [];
       init();
     };
 
@@ -33,21 +32,18 @@ const Canvas1 = () => {
     addEventListener("resize", OnResize);
 
     // rest of the items here
-    let circleArr: Circle[] = [];
     let gravityBallArr: GravityBall[] = [];
     const init = () => {
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 300; i++) {
         const x = Math.random() * innerWidth;
         const y = Math.random() * innerHeight;
         const dir = Math.floor(Math.random() * 2) * -2 + 1;
-        const dir2 = Math.floor(Math.random() * 2) * -2 + 1;
-        circleArr.push(new Circle(x, y, 3 * dir, 3 * dir2, 10));
         gravityBallArr.push(
           new GravityBall({
             x,
             y,
             dx: 3 * dir,
-            radius: 10,
+            radius: 15,
             gravity: 0,
           }),
         );
@@ -56,7 +52,7 @@ const Canvas1 = () => {
 
     const animate = () => {
       c.clearRect(0, 0, innerWidth, innerHeight);
-      for (let i = 0; i < circleArr.length; i++) {
+      for (let i = 0; i < gravityBallArr.length; i++) {
         // circleArr[i].update(c, mouse);
         gravityBallArr[i].update(c);
       }
@@ -65,6 +61,7 @@ const Canvas1 = () => {
     animate();
     init();
     return () => {
+      gravityBallArr = [];
       removeEventListener("resize", OnResize);
       removeEventListener("mousemove", OnMouseMove);
     };
