@@ -4,6 +4,7 @@ export class Circle {
   dx: number;
   dy: number;
   radius: number;
+  minRadius: number;
   MouseIn: number;
   color: { r: number; g: number; b: number };
 
@@ -13,6 +14,7 @@ export class Circle {
     this.dx = dx;
     this.dy = dy;
     this.radius = radius;
+    this.minRadius = radius;
     this.color = {
       r: Math.floor(Math.random() * 256),
       g: Math.floor(Math.random() * 256),
@@ -22,25 +24,25 @@ export class Circle {
   }
 
   draw(c: CanvasRenderingContext2D) {
-    this.drawOutline(c);
-    this.drawInteractOutline(c);
     c.beginPath();
     c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     c.strokeStyle = `rgb(${this.color.r},${this.color.r},${this.color.r})`;
     c.stroke();
-    c.fillStyle = `rgba(${this.color.r},${this.color.r},${this.color.r},0.4)`;
+    c.fillStyle = `rgb(${this.color.r},${this.color.r},${this.color.r})`;
     c.fill();
   }
 
   interactivity(mouse: { x: undefined | number; y: undefined | number }) {
+    const maxRad = 20;
     if (!mouse.x || !mouse.y) return;
+
     if (
-      this.x - mouse.x < this.MouseIn &&
-      this.x - mouse.x > -this.MouseIn &&
-      this.y - mouse.y < this.MouseIn &&
-      this.y - mouse.y > -this.MouseIn
+      Math.sqrt((mouse.x - this.x) ** 2 + (mouse.y - this.y) ** 2) <
+      this.MouseIn
     ) {
-      this.radius += 1;
+      if (maxRad >= this.radius) this.radius += 1;
+    } else {
+      if (this.minRadius <= this.radius) this.radius -= 0.1;
     }
   }
 
@@ -56,7 +58,7 @@ export class Circle {
     }
     this.x += this.dx;
     this.y += this.dy;
-    this.interactivity(mouse);
+    // this.interactivity(mouse);
     this.draw(c);
   }
 

@@ -22,8 +22,8 @@ const Navigation = () => {
               </div>
             </div>
           </div>
-          <div className="edgeMask absolute right-0 top-[50%] aspect-square h-20 w-10 translate-x-[99%] translate-y-[50%] bg-black" />
-          <div className="edgeMask absolute right-0 top-[50%] aspect-square h-20 w-10 origin-center -translate-y-[149%] translate-x-[100%] scale-y-[-1] bg-black outline-2 outline-white" />
+          <div className="edgeMask absolute right-0 top-[50%] z-[999] aspect-square h-20 w-10 translate-x-[99%] translate-y-[50%] bg-black" />
+          <div className="edgeMask absolute right-0 top-[50%] z-[999] aspect-square h-20 w-10 origin-center -translate-y-[149%] translate-x-[100%] scale-y-[-1] bg-black outline-2 outline-white" />
           <div className="flex justify-center">Profiles</div>
           <NavButton name="menu" />
           <NavButton name="1" />
