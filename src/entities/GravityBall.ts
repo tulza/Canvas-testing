@@ -13,9 +13,11 @@ export class GravityBall {
   radius: number;
   gravity: number;
   fallSpeed: number;
+  bounceNumber: number;
 
-  static ACCEL = 1;
-  static FRICTION = 0.9;
+  static ACCEL = 0.2;
+  static FRICTION = 1;
+  static BOUNCE_NUMBER = 3;
 
   constructor(props: GravityBallProps) {
     this.x = props.x;
@@ -24,6 +26,7 @@ export class GravityBall {
     this.gravity = props.gravity;
     this.dx = props.dx;
     this.fallSpeed = 0;
+    this.bounceNumber = GravityBall.BOUNCE_NUMBER;
   }
 
   draw(c: CanvasRenderingContext2D) {
@@ -48,8 +51,13 @@ export class GravityBall {
   }
 
   bounce() {
-    if (this.y + this.radius >= window.innerHeight && this.fallSpeed > 0) {
+    if (
+      this.y + this.radius >= window.innerHeight &&
+      this.fallSpeed > 0 &&
+      this.bounceNumber >= 0
+    ) {
       this.fallSpeed = -this.fallSpeed * GravityBall.FRICTION;
+      this.bounceNumber -= 1;
       return true;
       //   console.log(this.fallSpeed);
     }
