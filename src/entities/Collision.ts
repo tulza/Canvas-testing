@@ -10,8 +10,8 @@ export class CollisionBall {
   x: number;
   y: number;
   radius: number;
-  dx: number;
-  dy: number;
+  velocity: { x: number; y: number };
+  mass: number;
 
   static ACCEL = 0.2;
   static FRICTION = 1;
@@ -20,8 +20,8 @@ export class CollisionBall {
     this.x = props.x;
     this.y = props.y;
     this.radius = props.radius;
-    this.dx = props.dx;
-    this.dy = props.dx;
+    this.velocity = { x: props.dx, y: props.dy };
+    this.mass = 1;
   }
 
   draw(c: CanvasRenderingContext2D) {
@@ -29,7 +29,7 @@ export class CollisionBall {
     c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     c.strokeStyle = "#f00";
     c.stroke();
-    c.fillStyle = "#0005";
+    c.fillStyle = "#fff";
     c.fill();
   }
 
@@ -39,19 +39,19 @@ export class CollisionBall {
   }
 
   move() {
-    this.x += this.dx;
-    this.y += this.dy;
+    this.x += this.velocity.x;
+    this.y += this.velocity.y;
     if (
-      (this.x + this.radius >= innerWidth && this.dx > 0) ||
-      (this.x - this.radius <= 0 && this.dx < 0)
+      (this.x + this.radius >= innerWidth && this.velocity.x > 0) ||
+      (this.x - this.radius <= 0 && this.velocity.x < 0)
     ) {
-      this.dx = -this.dx;
+      this.velocity.x = -this.velocity.x;
     }
     if (
-      (this.y + this.radius >= innerHeight && this.dy > 0) ||
-      (this.y - this.radius <= 0 && this.dy < 0)
+      (this.y + this.radius >= innerHeight && this.velocity.y > 0) ||
+      (this.y - this.radius <= 0 && this.velocity.y < 0)
     ) {
-      this.dy = -this.dy;
+      this.velocity.y = -this.velocity.y;
     }
   }
 }

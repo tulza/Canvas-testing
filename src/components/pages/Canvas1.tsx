@@ -34,7 +34,7 @@ const Canvas1 = () => {
     // rest of the items here
     let gravityBallArr: GravityBall[] = [];
     const init = () => {
-      for (let i = 0; i < 300; i++) {
+      for (let i = 0; i < 30; i++) {
         const x = Math.random() * innerWidth;
         const y = Math.random() * innerHeight;
         const dir = Math.floor(Math.random() * 2) * -2 + 1;
@@ -49,6 +49,7 @@ const Canvas1 = () => {
         );
       }
     };
+
 
     const animate = () => {
       c.clearRect(0, 0, innerWidth, innerHeight);

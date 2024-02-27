@@ -30,8 +30,35 @@ const Canvas3 = () => {
 
     // rest of the items here
 
+    const DrawSine = (pointInterval: number, y: number) => {
+      c.moveTo(0, y);
+      c.beginPath();
+      for (let i = 0; i < innerWidth; i += pointInterval) {
+        c.lineTo(i, y + Math.sin(i / 50) * 50);
+      }
+      c.strokeStyle = "#fff";
+      c.stroke();
+    };
+    const DrawCos = (pointInterval: number, y: number) => {
+      c.moveTo(0, y);
+      c.beginPath();
+      for (let i = 0; i < innerWidth; i += pointInterval) {
+        c.lineTo(i, y + Math.cos(i / 50) * 50);
+      }
+      c.strokeStyle = "#fff";
+      c.stroke();
+    };
+
+    const DrawSineLODSet = (initY: number, LodDecr: number) => {
+      for (let i = 5; i < 150; i += LodDecr) {
+        DrawSine(i, initY + 20 * i);
+        DrawCos(i, initY + 20 * i);
+      }
+    };
+
+    DrawSineLODSet(0, 5);
+
     const animate = () => {
-      c.clearRect(0, 0, innerWidth, innerHeight);
       requestAnimationFrame(animate);
     };
     animate();

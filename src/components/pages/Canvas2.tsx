@@ -35,44 +35,42 @@ const Canvas2 = () => {
     };
 
     let ballArr: CollisionBall[] = [];
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
       // make sure it's safe Lol
-      const radius = 75;
-      let x = Math.random() * (innerWidth - 2 * radius) + radius;
-      let y = Math.random() * (innerHeight - 2 * radius) + radius;
-      const dx = 5 * (1 + -2 * Math.floor(Math.random() * 2));
-      const dy = 5 * (1 + -2 * Math.floor(Math.random() * 2));
+      const radius = 20;
+      let x = Math.random() * (innerWidth - 2 * radius + radius);
+      let y = Math.random() * (innerHeight - 2 * radius + radius);
+      console.log(x, y);
+      const dx = Math.random() * 5 * (1 + -2 * Math.floor(Math.random() * 2));
+      const dy = Math.random() * 5 * (1 + -2 * Math.floor(Math.random() * 2));
       for (let j = 0; j < ballArr.length; j++) {
-        if (getDist(x, y, ballArr[j].x, ballArr[j].y) < radius * 2) {
+        if (getDist(x, y, ballArr[j].x, ballArr[j].y) > radius * 2) {
           x = Math.random() * (innerWidth - 2 * radius) + radius;
           y = Math.random() * (innerHeight - 2 * radius) + radius;
           j = -1;
         }
       }
-      ballArr.push(new CollisionBall({ x, y, dx, dy, radius }));
+      console.log(x, y);
+      ballArr.push(new CollisionBall({ x: x, y: y, dx, dy, radius }));
     }
+    const rotate = (velocity: { x: number; y: number }, angle: number) => {
+      return {
+        x: velocity.x * Math.cos(angle) - velocity.y * Math.sin(angle),
+        y: velocity.x * Math.sin(angle) + velocity.y * Math.cos(angle),
+      };
+    };
 
     const animate = () => {
       c.clearRect(0, 0, innerWidth, innerHeight);
       requestAnimationFrame(animate);
       for (let i = 0; i < ballArr.length; i++) {
         ballArr[i].update(c);
-        for (let j = i; j < ballArr.length; j++) {
-          if (
-            getDist(ballArr[i].x, ballArr[i].y, ballArr[j].x, ballArr[j].y) <
-            ballArr[j].radius + ballArr[i].radius
-          ) {
-            ballArr[i].dx = -ballArr[i].dx;
-            ballArr[i].dy = -ballArr[i].dy;
-            ballArr[j].dx = -ballArr[j].dx;
-            ballArr[j].dy = -ballArr[j].dy;
-          }
-        }
       }
     };
     animate();
 
     return () => {
+      ballArr = [];
       removeEventListener("resize", OnResize);
       removeEventListener("mousemove", OnMouseMove);
     };
