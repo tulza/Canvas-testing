@@ -72,7 +72,6 @@ const Canvas = () => {
       requestAnimationFrame(animate);
 
       for (let i = 0; i < circleArray.length; i++) {
-        circleArray[i].update(c, mouse);
         for (let j = i + 1; j < circleArray.length; j++) {
           connectLine(
             circleArray[i].x,
@@ -81,6 +80,7 @@ const Canvas = () => {
             circleArray[j].y,
           );
         }
+        circleArray[i].update(c, mouse);
       }
     };
     animate();

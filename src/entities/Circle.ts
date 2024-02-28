@@ -28,7 +28,7 @@ export class Circle {
     c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     c.strokeStyle = `rgb(${this.color.r},${this.color.r},${this.color.r})`;
     c.stroke();
-    c.fillStyle = `rgba(${this.color.r},${this.color.r},${this.color.r},0.2)`;
+    c.fillStyle = `rgba(${this.color.r},${this.color.r},${this.color.r},1)`;
     c.fill();
   }
 
